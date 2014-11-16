@@ -51,7 +51,7 @@
 
     function unclickIt() {
         console.log('mouse unclicked...');
-        canvas.addEventListener('mousemove', drawIt);
+        canvas.removeEventListener('mousemove', drawIt);
     };
 
     function drawIt()  {
