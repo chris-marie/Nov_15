@@ -37,21 +37,21 @@
     context.strokeStyle = 'black';
 
     // click/mousedown: add mouse tracking + beginPath() + moveTo()
-    canvas.addEventListener('mousedown', clickIt, false);
+    canvas.addEventListener('mousedown', clickIt);
 
     // unclick/mouseup: remove mouse tracking + stroke()
-    canvas.addEventListener('mouseup', unclickIt, false);
+    canvas.addEventListener('mouseup', unclickIt);
 
     function clickIt(e) {
         console.log('clicking mouse: (' + mouse.x + ',' + mouse.y + ')');
         context.beginPath();
         context.moveTo(mouse.x, mouse.y);
-        canvas.addEventListener('mousemove', drawIt, false);
+        canvas.addEventListener('mousemove', drawIt);
     };
 
     function unclickIt() {
         console.log('mouse unclicked...');
-        canvas.addEventListener('mousemove', drawIt, false);
+        canvas.addEventListener('mousemove', drawIt);
     };
 
     function drawIt()  {
