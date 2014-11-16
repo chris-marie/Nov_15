@@ -3,8 +3,44 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Basic Sketch Pad with Canvas</title>
+    <style>
+        /*
+        body {
+        background-color: #e2e4ec;
+        }
+
+        canvas {
+            margin: 0 auto;
+            background-color: white;
+        }
+        */
+    </style>
+    <script>
+        var canvas = document.getElementById("canvasPad");
+        var context = canvas.getContext('2d');
+        var w = canvas.width, h = canvas.height;
+
+        var mouse = {x:0, y:0};
+
+        canvas.addEventListener('movemouse', function (e) {
+            mouse.x = e.pageX;
+            mouse.y = e.pageY;
+        }, false);
+
+
+        context.linCap = 'round';
+        context.strokeStyle = 'black';
+
+        /* Process:
+        click/mousedown: add mouse tracking + beginPath() + moveTo()
+        move mouse: track mouse movement(x,) + lineTo()
+        unclick/mouseup: remove mouse tracking + stroke()
+
+    </script>
 </head>
 <body>
+
+<canvas class="canvas" id="canvasPad" width="800" height="800"></canvas>
 
 </body>
 </html>
