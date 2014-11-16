@@ -14,33 +14,83 @@
             background-color: white;
         }
         */
+
     </style>
-    <script>
-        var canvas = document.getElementById("canvasPad");
-        var context = canvas.getContext('2d');
-        var w = canvas.width, h = canvas.height;
 
-        var mouse = {x:0, y:0};
-
-        canvas.addEventListener('movemouse', function (e) {
-            mouse.x = e.pageX;
-            mouse.y = e.pageY;
-        }, false);
-
-
-        context.linCap = 'round';
-        context.strokeStyle = 'black';
-
-        /* Process:
-        click/mousedown: add mouse tracking + beginPath() + moveTo()
-        move mouse: track mouse movement(x,) + lineTo()
-        unclick/mouseup: remove mouse tracking + stroke()
-        */
-    </script>
 </head>
 <body>
 
 <canvas class="canvas" id="canvasPad" width="800" height="800"></canvas>
 
+<script>
+    window.addEventListener('load', function() {
+
+        var canvas = document.getElementById("canvasPad");
+        var context = canvas.getContext('2d');
+        var w = canvas.width, h = canvas.height;
+
+        console.log("canvas: " + canvas);
+        console.log('canvas width: ' + w + ', canvas height: ' + h);
+
+        var mouse = {x: 0, y: 0};
+
+        console.log('mouse(x,y) = ' + mouse.x + ',' + mouse.y);
+
+        canvas.addEventListener('mouseenter', function() {
+            //
+        });
+        canvas.addEventListener('movemouse', function(e) {
+            mouse.x = e.pageX - this.offsetLeft;
+            mouse.y = e.pageY - this.offsetTop;
+        });
+
+        context.linCap = 'round';
+        context.strokeStyle = 'black';
+
+        // click/mousedown: add mouse tracking + beginPath() + moveTo()
+        canvas.addEventListener('mousedown', function(e) {
+            context.beginPath();
+            context.moveTo(mouse.x, mouse.y);
+            //  move mouse: track mouse movement(x,) + lineTo() + stroke()
+            canvas.addEventListener('mousemove', function() {
+                context.lineTo(mouse.x, mouse.y);
+                context.stroke();
+            });
+        });
+
+        // unclick/mouseup: remove mouse tracking + stroke()
+        canvas.addEventListener('mouseup', function() {
+            canvas.removeEventListener('mousemove', function() {
+                context.lineTo(mouse.x, mouse.y);
+                context.stroke();
+            });
+        });
+
+
+    });
+</script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
