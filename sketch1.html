@@ -38,8 +38,24 @@
         .colorButton {
             display: flex;
             justify-content: space-around;
+            cursor: pointer;
         }
 
+        #btnColorBlack:hover {
+            background-color: black;
+        }
+        #btnColorBlue:hover {
+            background-color: blue;
+        }
+        #btnColorRed:hover {
+            background-color: red;
+        }
+        #btnColorYellow:hover {
+            background-color: yellow;
+        }
+        #btnColorGreen:hover {
+            background-color: green;
+        }
     </style>
 
 
@@ -52,6 +68,13 @@
             var context = canvas.getContext('2d');
             var w = canvas.width, h = canvas.height;
             var mouse = {x: 0, y: 0};
+
+            // color buttons
+            var blackBtn = document.getElementById('btnColorBlack');
+            var blueBtn = document.getElementById('btnColorBlue');
+            var redBtn = document.getElementById('btnColorRed');
+            var yellowBtn = document.getElementById('btnColorYellow');
+            var greenBtn = document.getElementById('btnColorGreen');
 
             console.log("canvas: " + canvas);
             console.log('canvas width: ' + w + ', canvas height: ' + h);
@@ -66,9 +89,28 @@
                 mouse.y = e.pageY - this.offsetTop;
             }, false);
 
+            // default
             context.linewidth = 3;
             context.linCap = 'round';
             context.strokeStyle = 'black';
+
+            // change color if necessary
+            blackBtn.addEventListener('click', function(e) {
+                context.strokeStyle = 'black';
+            });
+            blueBtn.addEventListener('click', function(e) {
+                context.strokeStyle = 'blue';
+            });
+            redBtn.addEventListener('click', function(e) {
+                context.strokeStyle = 'red';
+            });
+            yellowBtn.addEventListener('click', function(e) {
+                context.strokeStyle = 'yellow';
+            });
+            greenBtn.addEventListener('click', function(e) {
+                context.strokeStyle = 'green';
+            });
+
 
             // click/mousedown: add mouse tracking + beginPath() + moveTo()
             canvas.addEventListener('mousedown', clickIt);
@@ -94,6 +136,12 @@
                 context.stroke();
             };
             context.drawImage(canvas, 0, 0, w, h);
+
+            function changeColor(c) {
+                console.log('changing color to: ' + c);
+            };
+
+
         }
     </script>
 
@@ -107,11 +155,12 @@
 
 </header>
 <header>
-<span class="colorButton" id="btnColorBlack">black</span>
-<span class="colorButton" id="btnColorBlue">blue</span>
-<span class="colorButton" id="btnColorRed">red</span>
-<span class="colorButton" id="btnColorGreen">green</span>
-<span class="colorButton" id="btnColorYellow">yellow</span>
+    <span class="colorButton" id="btnColorBlack">black</span>
+    <span class="colorButton" id="btnColorBlue">blue</span>
+    <span class="colorButton" id="btnColorRed">red</span>
+    <span class="colorButton" id="btnColorYellow">yellow</span>
+    <span class="colorButton" id="btnColorGreen">green</span>
+
 
 </header>
 <canvas class="canvas" id="canvasPad" width="800" height="800"></canvas>
