@@ -157,24 +157,17 @@
                 console.log('finished drawing free hand');
             });
 
+            function getPoint(e) {
+                var x1, y1;
+                canvas.addEventListener('click', function () {
+                    console.log(mouse.x + ',' + mouse.y);
+
+                });
+            };
+
             var drawStraightLine = document.getElementById('btnDrawLine');
             drawStraightLine.addEventListener('click', function () {
                 console.log('user wants to draw a straightline.');
-                canvas.addEventListener('mousedown', function (e) {
-                    console.log('user has clicked mouse to start line');
-                    context.beginPath();
-                    canvas.removeEventListener('mousedown', function() { console.log('done 1')});
-                    canvas.addEventListener('mouseup', function (e) {
-                        console.log('user selected position (' + mouse.x + ',' + mouse.y + ')');
-                        context.moveTo(mouse.x, mouse.y);
-                        canvas.removeEventListener('mouseup', function() {console.log('done2')});
-                        canvas.addEventListener('mousedown', function (e) {
-                            context.lineTo(mouse.x, mouse.y);
-                            canvas.addEventListener('mousedown', function() {console.log('done3')});
-                            context.stroke();
-                        });
-                    });
-                });
             });
 
 /*            canvas.removeEventListener('mousedown', function (e) {
