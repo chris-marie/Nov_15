@@ -72,12 +72,19 @@
             // have JQuery canvas variable ready for use
             var jcanvas = $('canvas');
 
+            // initialize sketch tools functions
+            var sketchTools = {};
+
             // color buttons
             var blackBtn = document.getElementById('btnColorBlack');
             var blueBtn = document.getElementById('btnColorBlue');
             var redBtn = document.getElementById('btnColorRed');
             var yellowBtn = document.getElementById('btnColorYellow');
             var greenBtn = document.getElementById('btnColorGreen');
+
+            // Tool buttons with Jquery
+           // var drawFreeHand = $('btnFreeHand');
+           // var drawLine = $('btnDrawLine');
 
             console.log("canvas: " + canvas);
             console.log('canvas width: ' + w + ', canvas height: ' + h);
@@ -90,64 +97,72 @@
             canvas.addEventListener('mousemove', function (e) {
                 mouse.x = e.pageX - this.offsetLeft;
                 mouse.y = e.pageY - this.offsetTop;
-            }, false);
+            });
 
             // default
             context.linewidth = 3;
             context.linCap = 'round';
             context.strokeStyle = 'black';
 
-            // change color if necessary
-            blackBtn.addEventListener('click', function(e) {
-                jcanvas.css({'border-color': 'black'});
-                context.strokeStyle = 'black';
-            });
-            blueBtn.addEventListener('click', function(e) {
-                jcanvas.css({'border-color': 'blue'});
-                context.strokeStyle = 'blue';
-            });
-            redBtn.addEventListener('click', function(e) {
-                jcanvas.css({'border-color': 'red'});
-                context.strokeStyle = 'red';
-            });
-            yellowBtn.addEventListener('click', function(e) {
-                jcanvas.css({'border-color': 'yellow'});
-                context.strokeStyle = 'yellow';
-            });
-            greenBtn.addEventListener('click', function(e) {
-                jcanvas.css({'border-color': 'green'});
-                context.strokeStyle = 'green';
-            });
 
-
-            // click/mousedown: add mouse tracking + beginPath() + moveTo()
-            canvas.addEventListener('mousedown', clickIt);
-
-            // unclick/mouseup: remove mouse tracking + stroke()
-            canvas.addEventListener('mouseup', unclickIt);
-
-            function clickIt(e) {
+            sketchTools.clickAndDrawIt = function (e) {
                 console.log('clicking mouse: (' + mouse.x + ',' + mouse.y + ')');
                 context.beginPath();
                 context.moveTo(mouse.x, mouse.y);
-                canvas.addEventListener('mousemove', drawIt);
+                canvas.addEventListener('mousemove', sketchTools.drawIt);
             };
 
-            function unclickIt() {
+            sketchTools.unclickIt = function () {
                 console.log('mouse unclicked...');
-                canvas.removeEventListener('mousemove', drawIt);
+                canvas.removeEventListener('mousemove', sketchTools.drawIt);
             };
 
-            function drawIt() {
+            sketchTools.drawIt = function () {
                 console.log('going to line: (' + mouse.x + ',' + mouse.y + ')');
                 context.lineTo(mouse.x, mouse.y);
                 context.stroke();
             };
             context.drawImage(canvas, 0, 0, w, h);
 
-            function changeColor(c) {
-                console.log('changing color to: ' + c);
-            };
+            // change color if necessary
+            blackBtn.addEventListener('click', function (e) {
+                jcanvas.css({'border-color': 'black'});
+                context.strokeStyle = 'black';
+            });
+            blueBtn.addEventListener('click', function (e) {
+                jcanvas.css({'border-color': 'blue'});
+                context.strokeStyle = 'blue';
+            });
+            redBtn.addEventListener('click', function (e) {
+                jcanvas.css({'border-color': 'red'});
+                context.strokeStyle = 'red';
+            });
+            yellowBtn.addEventListener('click', function (e) {
+                jcanvas.css({'border-color': 'yellow'});
+                context.strokeStyle = 'yellow';
+            });
+            greenBtn.addEventListener('click', function (e) {
+                jcanvas.css({'border-color': 'green'});
+                context.strokeStyle = 'green';
+            });
+
+            var drawFreeHand = document.getElementById('btnFreeHand');
+
+            drawFreeHand.addEventListener('click', function() {
+                console.log('user wants to draw on free hand');
+                canvas.addEventListener('mousedown', sketchTools.clickAndDrawIt);
+                canvas.addEventListener('mouseup', sketchTools.unclickIt);
+//                sketchTools.clickAndDrawIt(e);
+                //              sketchTools.unclickIt();
+                console.log('finished drawing free hand');
+            });
+            // you don't have to select a tool to start drawing
+
+            // click/mousedown: add mouse tracking + beginPath() + moveTo()
+           // canvas.addEventListener('mousedown', sketchTools.clickAndDrawIt);
+
+            // unclick/mouseup: remove mouse tracking + stroke()
+            //canvas.addEventListener('mouseup', sketchTools.unclickIt);
 
 
         }
