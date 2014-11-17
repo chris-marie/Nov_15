@@ -83,8 +83,8 @@
             var greenBtn = document.getElementById('btnColorGreen');
 
             // Tool buttons with Jquery
-           // var drawFreeHand = $('btnFreeHand');
-           // var drawLine = $('btnDrawLine');
+            // var drawFreeHand = $('btnFreeHand');
+            // var drawLine = $('btnDrawLine');
 
             console.log("canvas: " + canvas);
             console.log('canvas width: ' + w + ', canvas height: ' + h);
@@ -104,27 +104,28 @@
             context.linCap = 'round';
             context.strokeStyle = 'black';
 
-
             sketchTools.clickAndDrawIt = function (e) {
                 console.log('clicking mouse: (' + mouse.x + ',' + mouse.y + ')');
                 context.beginPath();
                 context.moveTo(mouse.x, mouse.y);
                 canvas.addEventListener('mousemove', sketchTools.drawIt);
             };
-
+            sketchTools.clickStartLine = function (e) {
+                console.log('beginning of the line selected (' + mouse.x + ',' + mouse.y + ')');
+                context.beginPath();
+                context.moveTo(mouse.x, mouse.y);
+            };
             sketchTools.unclickIt = function () {
                 console.log('mouse unclicked...');
                 canvas.removeEventListener('mousemove', sketchTools.drawIt);
             };
-
             sketchTools.drawIt = function () {
                 console.log('going to line: (' + mouse.x + ',' + mouse.y + ')');
                 context.lineTo(mouse.x, mouse.y);
                 context.stroke();
             };
             context.drawImage(canvas, 0, 0, w, h);
-
-            // change color if necessary
+/////////////////////            // change color if necessary
             blackBtn.addEventListener('click', function (e) {
                 jcanvas.css({'border-color': 'black'});
                 context.strokeStyle = 'black';
@@ -145,10 +146,9 @@
                 jcanvas.css({'border-color': 'green'});
                 context.strokeStyle = 'green';
             });
-
+/////////////////////////////////////////////
             var drawFreeHand = document.getElementById('btnFreeHand');
-
-            drawFreeHand.addEventListener('click', function() {
+            drawFreeHand.addEventListener('click', function () {
                 console.log('user wants to draw on free hand');
                 canvas.addEventListener('mousedown', sketchTools.clickAndDrawIt);
                 canvas.addEventListener('mouseup', sketchTools.unclickIt);
@@ -156,16 +156,37 @@
                 //              sketchTools.unclickIt();
                 console.log('finished drawing free hand');
             });
-            // you don't have to select a tool to start drawing
 
-            // click/mousedown: add mouse tracking + beginPath() + moveTo()
-           // canvas.addEventListener('mousedown', sketchTools.clickAndDrawIt);
+            var drawStraightLine = document.getElementById('btnDrawLine');
+            drawStraightLine.addEventListener('click', function () {
+                console.log('user wants to draw a straightline.');
+                canvas.addEventListener('mousedown', function (e) {
+                    console.log('user has clicked mouse to start line');
+                    context.beginPath();
+                    canvas.removeEventListener('mousedown', function() { console.log('done 1')});
+                    canvas.addEventListener('mouseup', function (e) {
+                        console.log('user selected position (' + mouse.x + ',' + mouse.y + ')');
+                        context.moveTo(mouse.x, mouse.y);
+                        canvas.removeEventListener('mouseup', function() {console.log('done2')});
+                        canvas.addEventListener('mousedown', function (e) {
+                            context.lineTo(mouse.x, mouse.y);
+                            canvas.addEventListener('mousedown', function() {console.log('done3')});
+                            context.stroke();
+                        });
+                    });
+                });
+            });
 
-            // unclick/mouseup: remove mouse tracking + stroke()
-            //canvas.addEventListener('mouseup', sketchTools.unclickIt);
-
-
-        }
+/*            canvas.removeEventListener('mousedown', function (e) {
+                canvas.addEventListener('mousemove', function (e) {
+                    // click/mousedown: add mouse tracking + beginPath() + moveTo()
+                    // canvas.addEventListener('mousedown', sketchTools.clickAndDrawIt);
+                    // unclick/mouseup: remove mouse tracking + stroke()
+                    //canvas.addEventListener('mouseup', sketchTools.unclickIt);
+                });
+            });
+  */
+        };
     </script>
 
 </head>
