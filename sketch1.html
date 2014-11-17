@@ -58,16 +58,19 @@
         }
     </style>
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <script>
 
-
-
         window.onload = function() {
+
             var canvas = document.getElementById("canvasPad");
             var context = canvas.getContext('2d');
             var w = canvas.width, h = canvas.height;
             var mouse = {x: 0, y: 0};
+
+            // have JQuery canvas variable ready for use
+            var jcanvas = $('canvas');
 
             // color buttons
             var blackBtn = document.getElementById('btnColorBlack');
@@ -96,18 +99,23 @@
 
             // change color if necessary
             blackBtn.addEventListener('click', function(e) {
+                jcanvas.css({'border-color': 'black'});
                 context.strokeStyle = 'black';
             });
             blueBtn.addEventListener('click', function(e) {
+                jcanvas.css({'border-color': 'blue'});
                 context.strokeStyle = 'blue';
             });
             redBtn.addEventListener('click', function(e) {
+                jcanvas.css({'border-color': 'red'});
                 context.strokeStyle = 'red';
             });
             yellowBtn.addEventListener('click', function(e) {
+                jcanvas.css({'border-color': 'yellow'});
                 context.strokeStyle = 'yellow';
             });
             greenBtn.addEventListener('click', function(e) {
+                jcanvas.css({'border-color': 'green'});
                 context.strokeStyle = 'green';
             });
 
