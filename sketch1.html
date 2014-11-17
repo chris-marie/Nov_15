@@ -29,16 +29,24 @@
             border: 5px solid #000082;
             background-color: white;
             display: block;
-            margin: auto;
+            margin: 0 auto 0 auto;
         }
         .canvas:hover {
             border: 5px solid #000000;
             cursor: crosshair;
         }
+        .colorButton {
+            display: flex;
+            justify-content: space-around;
+        }
+
     </style>
 
 
     <script>
+
+
+
         window.onload = function() {
             var canvas = document.getElementById("canvasPad");
             var context = canvas.getContext('2d');
@@ -90,13 +98,22 @@
     </script>
 
 </head>
-<header>
-    <span class="button" id="btnFreeHand">FreeHand</span>
-    <span class="button" id="btnDrawLine">Draw Line</span>
-</header>
 
 <body>
 
+<header>
+    <span class="button" id="btnFreeHand">FreeHand</span>
+    <span class="button" id="btnDrawLine">Draw Line</span>
+
+</header>
+<header>
+<span class="colorButton" id="btnColorBlack">black</span>
+<span class="colorButton" id="btnColorBlue">blue</span>
+<span class="colorButton" id="btnColorRed">red</span>
+<span class="colorButton" id="btnColorGreen">green</span>
+<span class="colorButton" id="btnColorYellow">yellow</span>
+
+</header>
 <canvas class="canvas" id="canvasPad" width="800" height="800"></canvas>
 
 
