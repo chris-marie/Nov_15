@@ -175,6 +175,9 @@
             var x1, x2, y1, y2;
             /// click the BUTTON
             drawStraightLine.addEventListener('click', function () {
+                // hack: won't switch from freehand to straight line
+                canvas.removeEventListener('mousedown', function() { console.log('remove free hand listeners');});
+                canvas.removeEventListener('mouseup', function() {console.log('remove freehand mouseup listener');});
                 console.log('user clicked button to draw a straight line.');
                 console.log('STARTING clickIdx IS = ' +  clickIdx);
 
