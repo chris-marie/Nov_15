@@ -166,8 +166,16 @@
             };
 
             var drawStraightLine = document.getElementById('btnDrawLine');
+            console.log('user wants to draw a straightline.');
+            var x1, x2, y1, y2;
             drawStraightLine.addEventListener('click', function () {
-                console.log('user wants to draw a straightline.');
+                x1 = mouse.x;
+                y1 = mouse.y;
+                drawstraightLine.removeEventListener('click', function() {
+                    console.log('point1 = (' + x1 + ',' + y1 + ')');
+                });
+
+
             });
 
 /*            canvas.removeEventListener('mousedown', function (e) {
