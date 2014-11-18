@@ -183,7 +183,9 @@
 
                 // first Click CANVAS
 
+                var needFirstPoint = true;
                 canvas.addEventListener('click', function () {
+                    /*
                     clickIdx = clickIdx + 1;
                     console.log(' the clickIdx = ' +  clickIdx);
                     if (!isEven(clickIdx)) {
@@ -203,7 +205,15 @@
                         context.lineTo(x2, y2);
                         context.stroke();
                         console.log('drawline');
-
+                  */
+                    if (needFirstPoint) {
+                        context.beginPath();
+                        context.moveTo(mouse.x, mouse.y);
+                        needFirstPoint = false;
+                    }
+                    else {
+                        context.lineTo(mouse.x, mouse.y);
+                        context.stroke();
                     }
                 });
                 //canvas.addEventListener('click', function () {
