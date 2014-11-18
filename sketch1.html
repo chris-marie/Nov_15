@@ -165,16 +165,50 @@
                 });
             };
 
-            var drawStraightLine = document.getElementById('btnDrawLine');
-            console.log('user wants to draw a straightline.');
-            var x1, x2, y1, y2;
-            drawStraightLine.addEventListener('click', function () {
-                x1 = mouse.x;
-                y1 = mouse.y;
-                drawstraightLine.removeEventListener('click', function() {
-                    console.log('point1 = (' + x1 + ',' + y1 + ')');
-                });
+            function isEven(n) {
+                n = Number(n);
+                return n && (n%2) ===0;s
+            };
 
+            var drawStraightLine = document.getElementById('btnDrawLine');
+            var clickIdx = 0;
+            var x1, x2, y1, y2;
+            /// click the BUTTON
+            drawStraightLine.addEventListener('click', function () {
+                console.log('user clicked button to draw a straight line.');
+                console.log('STARTING clickIdx IS = ' +  clickIdx);
+
+                // first Click CANVAS
+
+                canvas.addEventListener('click', function () {
+                    clickIdx = clickIdx + 1;
+                    console.log(' the clickIdx = ' +  clickIdx);
+                    if (!isEven(clickIdx)) {
+                        //this is the fist click, thus the first point of a line
+                        x1 = mouse.x;
+                        y1 = mouse.y;
+                        console.log('point1 = (' + x1 + ',' + y1 + ')');
+                        context.beginPath();
+                        context.moveTo(x1, y1);
+                    } else {
+                        // canvas.removeEventListener('click', function () {
+                        console.log('user clicked to select first point');
+                        x2 = mouse.x;
+                        y2 = mouse.y;
+                        console.log('point2 = (' + x2 + ',' + y2 + ')');
+
+                        context.lineTo(x2, y2);
+                        context.stroke();
+                        console.log('drawline');
+
+                    }
+                });
+                //canvas.addEventListener('click', function () {
+                  //
+                    //
+                    //canvas.removeEventListener('click', function () {
+                      //  console.log('user clicked second point');
+                    //});
 
             });
 
